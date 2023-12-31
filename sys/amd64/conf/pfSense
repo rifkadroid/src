@@ -1,4 +1,0 @@
-include pfSense-DEBUG
-include "../../conf/std.nodebug"
-
-ident   pfSense

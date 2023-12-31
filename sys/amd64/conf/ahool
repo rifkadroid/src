@@ -1,0 +1,4 @@
+include ahool-DEBUG
+include "../../conf/std.nodebug"
+
+ident   ahool

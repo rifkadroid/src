@@ -3,7 +3,7 @@ include		GENERIC
 nooptions	KDB_TRACE
 options 	DDB
 
-ident		pfSense-DEBUG
+ident		ahool-DEBUG
 
 nooptions	MAC		# TrustedBSD MAC Framework
 nooptions	COMPAT_FREEBSD4	# Compatible with FreeBSD4
