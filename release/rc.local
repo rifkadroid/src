@@ -64,7 +64,7 @@ if ! mdconfig -l | grep -q md3; then
 	mount /dev/md3 /etc
 fi
 
-# Mount /dev/ufs/pfSense_Install on factory to prevent USB stick disk used
+# Mount /dev/ufs/ahool_Install on factory to prevent USB stick disk used
 # to boot to be shown as an option to install
 if [ -e /dev/ufs/pfSense_Install -a ! -d /tmp/usb_install_media ]; then
 	mkdir -p /tmp/usb_install_media
@@ -103,7 +103,7 @@ if [ $? -eq 0 ]; then
 else
 	# Serial or other console
 	echo
-	echo "Welcome to pfSense!"
+	echo "Welcome to ahool!"
 	echo
 	echo "Please choose the appropriate terminal type for your system."
 	echo "Common console types are:"
@@ -123,10 +123,10 @@ resizewin -z
 
 if [ -f /etc/installerconfig ]; then
 	if bsdinstall script /etc/installerconfig; then
-		bsddialog --backtitle "pfSense Installer" --title "Complete" --no-cancel --ok-label "Reboot" --pause "Installation of pfSense complete! Rebooting in 10 seconds" 10 30 10
+		bsddialog --backtitle "ahool Installer" --title "Complete" --no-cancel --ok-label "Reboot" --pause "Installation of ahool complete! Rebooting in 10 seconds" 10 30 10
 		reboot
 	else
-		bsddialog --backtitle "pfSense Installer" --title "Error" --textbox /tmp/bsdinstall_log 0 0
+		bsddialog --backtitle "ahool Installer" --title "Error" --textbox /tmp/bsdinstall_log 0 0
 	fi
 	exit 
 fi
@@ -146,12 +146,12 @@ protected under United States and international copyright and trademark
 laws and treaties, and may not be used or reproduced without the prior
 express written permission of ESF and/or Netgate.
 
-"pfSense" is a registered trademark of ESF, exclusively licensed to
+"ahool" is a registered trademark of ESF, exclusively licensed to
 Netgate, and may not be used without the prior express written
 permission of ESF and/or Netgate. All other trademarks shown herein are
 owned by the respective companies or persons indicated.
 
-pfSense(R) software is open source and distributed under the Apache 2.0
+ahool(R) software is open source and distributed under the Apache 2.0
 license.  However, no commercial distribution of ESF and/or Netgate
 software is allowed without the prior written consent of ESF and/or
 Netgate.
@@ -205,7 +205,7 @@ EOD
 
 if [ ! -f /tmp/buildroom ]; then
 	exec 3>&1
-	bsddialog --backtitle "pfSense Installer" \
+	bsddialog --backtitle "Ahool Installer" \
 		--title "Copyright and distribution notice" \
 		--ok-label "Accept" \
 		--colors \
@@ -214,7 +214,7 @@ if [ ! -f /tmp/buildroom ]; then
 fi
 
 IOPTS="\
-\"Install\" \"Install pfSense\" \
+\"Install\" \"Install Ahool\" \
 \"Rescue Shell\" \"Launch a shell for rescue operations\""
 
 if [ -x /root/recover_configxml.sh ] ; then
@@ -222,9 +222,9 @@ if [ -x /root/recover_configxml.sh ] ; then
 fi
 
 exec 3>&1
-IMODE=`echo ${IOPTS} | xargs dialog --backtitle "pfSense Installer" \
+IMODE=`echo ${IOPTS} | xargs dialog --backtitle "ahool Installer" \
 	--title "Welcome" \
-	--menu "Welcome to pfSense!" \
+	--menu "Welcome to Ahool!" \
 	0 0 0 2>&1 1>&3` || exit 1
 exec 3>&-
 
@@ -250,8 +250,8 @@ case "$IMODE" in
 		BSDINSTALL_SKIP_USERS=y \
 		DISTRIBUTIONS="base.txz" \
 		NETCONFIG_DONE=yes \
-		OSNAME=pfSense \
-		ROOTPASS_PLAIN=pfsense \
+		OSNAME=Ahool \
+		ROOTPASS_PLAIN=ahool \
 		ZFSBOOT_DATASETS="
 /$ZFSBOOT_BEROOT_NAME	mountpoint=none
 /$ZFSBOOT_BEROOT_NAME/$ZFSBOOT_BOOTFS_NAME	mountpoint=/
@@ -271,11 +271,11 @@ case "$IMODE" in
 # Needs to be below var/db so it does not get covered up when the var/db dataset is created
 /$ZFSBOOT_BEROOT_NAME/$ZFSBOOT_BOOTFS_NAME/var_db_pkg	mountpoint=/var/db/pkg,setuid=off,exec=off
 " \
-		ZFSBOOT_POOL_NAME=pfSense \
+		ZFSBOOT_POOL_NAME=ahool \
 		ZFSBOOT_SWAP_SIZE=1g \
 		bsdinstall
 	if [ $? -eq 0 ]; then
-		bsddialog --backtitle "pfSense Installer" --title "Complete" --yes-label "Reboot" --no-label "Shell" --yesno "Installation of pfSense complete! Would you like to reboot into the installed system now?" 0 0 && reboot
+		bsddialog --backtitle "ahool Installer" --title "Complete" --yes-label "Reboot" --no-label "Shell" --yesno "Installation of ahool complete! Would you like to reboot into the installed system now?" 0 0 && reboot
 		clear
 		echo "When finished, type 'exit' to reboot."
 		/bin/sh
